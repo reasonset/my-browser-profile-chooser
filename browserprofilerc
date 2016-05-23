@@ -1,0 +1,5 @@
+mybrowsers[shopping]="chr $HOME/.browser-settings/chromium/shopping"
+mybrowsers[sns]="chr $HOME/.browser-settings/firefox/sns"
+
+modify_browsers[google-chrome]=google-chrome-stable
+modify_browsers[vivaldi]=vivaldi-stable
