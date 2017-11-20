@@ -8,7 +8,8 @@ typeset -gi fx_path_mode=1
 chrstyle() {
   dir="$1"
   shift
-  "${${modify_browsers[$browser]}:-$browser}" --user-data-dir="$dir" "$@"
+  print $dir
+  "${${modify_browsers[$browser]}:-$browser}" --user-data-dir="${dir}" "$@"
 }
 
 #Like a Firefox
@@ -17,9 +18,9 @@ fxstyle() {
   shift
   if (( fx_path_mode == 1 ))
   then
-    "${${modify_browsers[$browser]}:-$browser}" -profile "$profile" "$@"
+    "${${modify_browsers[$browser]}:-$browser}" --profile "${profile}" "$@"
   else
-    "${${modify_browsers[$browser]}:-$browser}" -P "$profile" "$@"
+    "${${modify_browsers[$browser]}:-$browser}" -P "${profile}" "$@"
   fi
 }
 
@@ -27,21 +28,21 @@ fxstyle() {
 mdr() {
   config="$1"
   shift
-  midori -c "$config" "$@"
+  "${${modify_browsers[midori]}:-$browser}" -c "${config}" "$@"
 }
 
 #Qupzilla
 qup() {
   profile="$1"
   shift
-  qupzilla -p="$profile" "$@"
+  "${${modify_browsers[qupzilla]}:-$browser}" -p="${profile}" "$@"
 }
 
 #Rekonq
 rek() {
   config="$1"
   shift
-  rekonq --config "$config" "$@"
+  "${${modify_browsers[rekonq]}:-$browser}" --config "${config}" "$@"
 }
 
 
@@ -101,6 +102,12 @@ fx() {
   fxstyle "$@"
 }
 
+#Waterfox
+wfx() {
+  typeset -g browser="waterfox"
+  fxstyle "$@"
+}
+
 #Palemoon
 pmoon() {
   typeset -g browser="palemoon"
@@ -118,10 +125,19 @@ typeset -A modify_browsers
 
 # Load config file.
 # Plase Define Assoc $mybrowsers like;
-# mybrowsers[amazon]='gch https://www.amazon.com/'
+# mybrowsers[amazon]='gch ~/.browsers/amazon'
 # If you want to modify application command like google-chrome to google-chrome-stable, set like:
 # modify_browsers[google-chrome]=google-chrome-stable
 . ~/.yek/browserprofilerc
 
 # $1 as a key.
-eval "$mybrowsers[$1]"
+pfk="$1"
+shift
+
+if [[ -z "${mybrowsers[$pfk]}" ]]
+then
+  notify-send -i browser -u low -a "MyBrowser Chooser" "No Profile" "Browsr Profile name not given or no such profile($pfk)."
+  exit 1
+fi
+
+"${=mybrowsers[$pfk]}" "$@"
