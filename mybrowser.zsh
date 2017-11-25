@@ -26,6 +26,7 @@ fxstyle() {
 
 #Midori
 mdr() {
+  typeset browser="midori"
   config="$1"
   shift
   "${${modify_browsers[midori]}:-$browser}" -c "${config}" "$@"
@@ -33,13 +34,28 @@ mdr() {
 
 #Qupzilla
 qup() {
+  typeset browser="qupzilla"
+  #Qupzilla is not support profile path, so use symlink instead.
   profile="$1"
   shift
-  "${${modify_browsers[qupzilla]}:-$browser}" -p="${profile}" "$@"
+
+  if [[ ! -e "$HOME/.config/qupzilla/profiles/$pfk" ]]
+  then
+    ln -s "$profile" "$HOME/.config/qupzilla/profiles/${pfk//\//-}"
+  elif [[ -h "$HOME/.config/qupzilla/profiles/$pfk" ]]
+  then
+    rm "$HOME/.config/qupzilla/profiles/${pfk//\//-}"
+    ln -s "$profile" "$HOME/.config/qupzilla/profiles/${pfk//\//-}"
+  else
+    notify-send -r -i browser -u low -a "MyBrowser Chooser" "Can't link qupzilla profile" "Qupzilla profile ${pfk//\//-} is not under control by My Browser Chooser."
+  fi
+
+  "${${modify_browsers[qupzilla]}:-$browser}" -p "${pfk//\//-}" "$@"
 }
 
 #Rekonq
 rek() {
+  typeset browser="rekonq"
   config="$1"
   shift
   "${${modify_browsers[rekonq]}:-$browser}" --config "${config}" "$@"
@@ -131,7 +147,7 @@ typeset -A modify_browsers
 . ~/.yek/browserprofilerc
 
 # $1 as a key.
-pfk="$1"
+typeset -g pfk="$1"
 shift
 
 if [[ -z "${mybrowsers[$pfk]}" ]]
