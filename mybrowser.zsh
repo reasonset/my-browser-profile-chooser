@@ -18,9 +18,9 @@ fxstyle() {
   shift
   if (( fx_path_mode == 1 ))
   then
-    "${${modify_browsers[$browser]}:-$browser}" --profile "${profile}" "$@"
+    "${${modify_browsers[$browser]}:-$browser}" --new-instance --profile "${profile}" "$@"
   else
-    "${${modify_browsers[$browser]}:-$browser}" -P "${profile}" "$@"
+    "${${modify_browsers[$browser]}:-$browser}" --new-instance -P "${profile}" "$@"
   fi
 }
 
@@ -51,6 +51,27 @@ qup() {
   fi
 
   "${${modify_browsers[qupzilla]}:-$browser}" -p "${pfk//\//-}" "$@"
+}
+
+#Falkon
+fal() {
+  typeset browser="falkon"
+  #Qupzilla is not support profile path, so use symlink instead.
+  profile="$1"
+  shift
+
+  if [[ ! -e "$HOME/.config/falkon/profiles/$pfk" ]]
+  then
+    ln -s "$profile" "$HOME/.config/falkon/profiles/${pfk//\//-}"
+  elif [[ -h "$HOME/.config/falkon/profiles/$pfk" ]]
+  then
+    rm "$HOME/.config/falkon/profiles/${pfk//\//-}"
+    ln -s "$profile" "$HOME/.config/falkon/profiles/${pfk//\//-}"
+  else
+    notify-send -r -i browser -u low -a "MyBrowser Chooser" "Can't link Falkon profile" "Falkon profile ${pfk//\//-} is not under control by My Browser Chooser."
+  fi
+
+  "${${modify_browsers[falkon]}:-$browser}" -p "${pfk//\//-}" "$@"
 }
 
 #Rekonq
@@ -144,11 +165,36 @@ typeset -A modify_browsers
 # mybrowsers[amazon]='gch ~/.browsers/amazon'
 # If you want to modify application command like google-chrome to google-chrome-stable, set like:
 # modify_browsers[google-chrome]=google-chrome-stable
-. ~/.yek/browserprofilerc
+for i in $XDG_CONFIG_HOME/reasonset ~/.config/reasonset ~/.yek
+do
+  if [[ -e "$i"/browserprofilerc ]]
+  then
+    source "$i"/browserprofilerc
+    continue
+  fi
+done
+
+if (( ${#mybrowsers} == 0 ))
+then
+  print "Configuration file is missing."
+  exit 1
+fi
 
 # $1 as a key.
 typeset -g pfk="$1"
-shift
+(( $# > 0 )) && shift
+
+if [[ -z "$pfk" ]]
+then
+  # Load list.
+  pfk="$(zenity --list --title="Select Browser Profile" --width=300 --height=400 --column="Profile" "${(@ko)mybrowsers}")"
+  if [[ -z "$pfk" ]]
+  then
+    notify-send -i browser -u low -a "MyBrowser Chooser" "No Profile" "No profile given."
+    exit 2
+  fi
+fi
+
 
 if [[ -z "${mybrowsers[$pfk]}" ]]
 then
