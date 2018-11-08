@@ -1,0 +1,167 @@
+#!/bin/zsh
+
+# Set profile name
+pfname="$1"
+(( $# > 0 )) && shift
+
+##################################
+##### define core paramaters #####
+##################################
+
+# Firefox use -profile instead of -P profile
+typeset -gi fx_path_mode=1
+
+# Command line arg
+typeset -ga cliarg=("$@")
+
+typeset -g browser # Browser command
+typeset -g profile # Profile name or path
+
+############################################
+##### define common browser call style #####
+############################################
+
+#Like a Firefox
+fxstyle() {
+  if (( fx_path_mode == 1 ))
+  then
+    "$browser" --new-instance --profile "${profile}" "${cliarg[@]}"
+  else
+    "$browser" --new-instance -P "${profile}" "${cliarg[@]}"
+  fi
+}
+
+#Like a chromium
+chrstyle() {
+  "$browser" --user-data-dir="${profile}" "${cliarg[@]}"
+}
+
+###################################
+##### define browse shorthand #####
+###################################
+
+### Firefox ###
+
+fx() {
+    browser=firefox
+    fxstyle
+}
+
+#Waterfox
+wfx() {
+  browser="waterfox"
+  fxstyle
+}
+
+#Palemoon
+pmoon() {
+  browser="palemoon"
+  fxstyle
+}
+
+#SeaMonkey
+smk() {
+  browser="seamonkey"
+  fxstyle
+}
+
+### Falkon ###
+
+flk() {
+    falkon -p "$profile" "${cliarg[@]}"
+}
+
+#Chromium
+chi() {
+  browser='chromium'
+  chrstyle
+}
+
+#Google Chrome
+gch() {
+  browser='google-chrome'
+  chrstyle
+}
+
+#Opera Developer
+opdev() {
+  browser='opera-developer'
+  chrstyle
+}
+
+#Opera Beta
+opbeta() {
+  browser='opera-beta'
+  chrstyle
+}
+
+#Opera
+op() {
+  browser='opera'
+  chrstyle
+}
+
+#Vivaldi
+viv() {
+  browser='vivaldi-stable'
+  chrstyle
+}
+
+vivbeta() {
+  browser='vivaldi-beta'
+  chrstyle
+}
+
+vivsnap() {
+    browser=vivaldi-snapshot
+    chrstyle
+}
+
+#Slimjet
+slimjet() {
+  browser='flashpeak-slimjet'
+  chrstyle
+}
+
+if [[ -e "${XDG_CONFIG_HOME:-$HOME/.config}/reasonset/browserprofilerc.zsh" ]]
+then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/reasonset/browserprofilerc.zsh"
+else
+  print "Configuration file is missing."
+  exit 1
+fi
+
+avail_profiles="$(print -l ${(ko)functions} | grep "^webpf_")"
+
+# No profile defined
+if (( ${#avail_profiles} < 1 ))
+then
+    notify-send -i browser -u low -a "MyBrowser Chooser" "No Profile" "No profile is defined."
+    exit 4
+fi
+  
+
+# Empty profile
+if [[ -z "$pfname" ]]
+then
+  # Load list.
+  pfname="$(zenity --list --title="Select Browser Profile" --width=300 --height=400 --column="Profile" $(print -l ${avail_profiles[@]} | sed 's/^webpf_//'))"
+  if [[ -z "$pfname" ]]
+  then
+    if [[ -n "$default_profile" ]]
+    then
+        pfname="$default_profile"
+    else
+        notify-send -i browser -u low -a "MyBrowser Chooser" "No Profile" "No profile given."
+        exit 2
+    fi
+  fi
+fi
+
+if (( $avail_profiles[(i)$pfname] > ${#avail_profiles} ))
+then
+    notify-send -i browser -u low -a "MyBrowser Chooser" "No Profile" "Browsr Profile name not given or no such profile($pfname)."
+    exit 1
+fi
+
+webpf_$pfname
