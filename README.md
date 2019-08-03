@@ -79,7 +79,7 @@ You can override with aliasing.
 * `seamonkey`
 * `falkon`
 * `chromium`
-* `google-chrome`
+* `google-chrome-stable`
 * `opera`
 * `opera-beta`
 * `opera-developer`

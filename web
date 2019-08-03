@@ -9,7 +9,7 @@ pfname="$1"
 ##################################
 
 # Firefox use -profile instead of -P profile
-typeset -gi fx_path_mode=1
+typeset -gi fx_path_mode=0
 
 # Command line arg
 typeset -ga cliarg=("$@")
@@ -79,7 +79,7 @@ chi() {
 
 #Google Chrome
 gch() {
-  browser='google-chrome'
+  browser='google-chrome-stable'
   chrstyle
 }
 
