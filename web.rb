@@ -55,10 +55,10 @@ class BrowserChooser
     end
 
     # regist each profile.
-    (@profiles = @config["Profiles"]) or abort "No Profiles found."
+    (@profiles = @config["Profiles"]) or err "No Profiles found."
     @profiles.each do |k, profile|
       unless profile["type"] && BROWSERS[profile["type"]] && profile["pstr"]
-        abort "Profile #{k} is wrong."
+        err "Profile #{k} is wrong."
       end
     end
 
@@ -69,9 +69,9 @@ class BrowserChooser
   end
 
   def load_config
-    @config = YAML.load(File.read("#{ENV["HOME"]}/.config/reasonset/browserprofiles.yaml")) rescue abort("config file not found or parse error.")
+    @config = YAML.load(File.read("#{ENV["HOME"]}/.config/reasonset/browserprofiles.yaml")) rescue err("config file not found or parse error.")
     unless Hash === @config
-      abort "Your config is not a Hash."
+      err "Your config is not a Hash."
     end
   end
 
@@ -79,9 +79,13 @@ class BrowserChooser
     unless @specified_profile
       profile_dialog
     end
+    
+    unless @profiles[@specified_profile]
+      err "Profile #{@specified_profile} is not exist."
+    end
 
     unless @browsers[@profiles[@specified_profile]["type"]]
-      abort "Type #{@browsers[@profiles[@specified_profile]["type"]]} is not defined."
+      err "Type #{@browsers[@profiles[@specified_profile]["type"]]} is not defined."
     end
 
     fork do
@@ -91,6 +95,16 @@ class BrowserChooser
         arg = params["opt"] + ARGV
       end
       @browsers[params["type"]][:proc].call(params["pstr"], (params["env"] || {}), @browsers[params["type"]][:bin], arg, @config)
+    end
+  end
+  
+  private
+  
+  def err(msg)
+    if STDERR.isatty
+      abort msg
+    else
+      system("notify-send", "--icon=browser", "--expire-time=5000", msg)
     end
   end
 end
