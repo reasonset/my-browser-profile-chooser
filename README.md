@@ -19,11 +19,20 @@ for example:
 ```yaml
 ---
 Profiles:
-  vivoid:
-    pstr: /vivaldi/vivoid
-    arg:
+  fooprofile:
+    pstr: /profile.1
+    opt:
       - "--incognito"
-    type: viv
+      - "--proxy-server=socks5://foobar:66"
+      - "password-store=gnome"
+    type: chi
+Profiles:
+  foofxprofile:
+    pstr: fooprofile
+    opt:
+      - "--private-window"
+      - "--headless"
+    type: fx
 Override:
   gch: google-chrome
 PathBase: /home/jrh/browser
@@ -36,7 +45,7 @@ Each profile has name as key and settings as value.
 |key in settings|mean|
 |-------|---------------------------|
 |`pstr`|Profile string. Chromium style browser wants profile directory path, and Firefox style browser wants profile name.|
-|`arg`|Command line options array.|
+|`opt`|Command line options array.|
 |`type`|Browser type.|
 
 Avilable types are:

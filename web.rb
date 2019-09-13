@@ -11,6 +11,7 @@ class BrowserChooser
     if conf["PathBase"]
       profile = conf["PathBase"] + profile
     end
+    p arg
     exec(env, bin, "--user-data-dir=#{profile}", *arg)
   }
 
