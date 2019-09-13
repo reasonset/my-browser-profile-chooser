@@ -4,89 +4,68 @@ Easy to switch each browser with each profile.
 # Usage
 
 ```
-$ web <profile_name>
+web.rb <profile_name> [*arg]
+web.rb
 ```
 
 # Configuration
 
 ## Config file
 
-Define functions on `$XDG_CONFIG_HOME/reasonset/browserprofilerc.zsh`.
-Each profile function name should begin with `webpf_`.
-like:
+Define functions on `$XDG_CONFIG_HOME/reasonset/browserprofiles.yaml`.
 
-```zsh
-webpf_sample() {
-	profile="$HOME/profiles/sample" # Profile name or path.
-	fx
-}
+for example:
+
+```yaml
+---
+Profiles:
+  vivoid:
+    pstr: /vivaldi/vivoid
+    arg:
+      - "--incognito"
+    type: viv
+Override:
+  gch: google-chrome
+PathBase: /home/jrh/browser
 ```
 
-If you want edit or add command-line arguments,
-use `$cliarg` array paramater.
+### Profiles
 
-```zsh
-webpf_sample() {
-	cliarg=(--incognito "$cliarg[@]")
-	profile="$HOME/profiles/sample" # Profile name or path.
-	chi
-}
-```
+Each profile has name as key and settings as value.
 
-`$profile` is a profile name or path.
-It's a directory if it is chromium style argument,
-or it's a name if it is Falkon's argument.
+|key in settings|mean|
+|-------|---------------------------|
+|`pstr`|Profile string. Chromium style browser wants profile directory path, and Firefox style browser wants profile name.|
+|`arg`|Command line options array.|
+|`type`|Browser type.|
 
-Firefox use path to profile directory by default.
-If you want to use Firefox profile name, you can set
+Avilable types are:
 
-```zsh
-(( fx_path_mode=0 ))
-```
+|name of type|appname|as command|
+|-----|--------|-----------------|
+|`fx`|Mozilla Firefox|`firefox`|
+|`wfx`|Waterfox|`faterfox`|
+|`pmoon`|Palemoon|`palemoon`|
+|`smk`|Seamonkey|`seamonkey`|
+|`flk`|Falkon|`falkon`|
+|`chi`|Chromium|`chromium`|
+|`gch`|Google Chrome|`google-chrome-stable`|
+|`op`|Opera|`opera`|
+|`opbeta`|Opera Beta|`opera-beta`|
+|`opdev`|Opera Developer|`opera-developer`|
+|`viv`|Vivaldi|`vivaldi-stalbe`|
+|`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`|
+|`slimjet`|Flashpeak Slimjet|`slimjet`|
 
-in your config file.
+### Override
 
-## Avail shorthands
+Override browser command.
 
-Finally, call one of these commands on last of your profile function.
+Key is a name of type, value is overriding command string.
 
-* `fx` (Firefox)
-* `wfx` (Waterfox)
-* `pmoon` (Plaemoon)
-* `smk` (Seamonkey)
-* `flk` (Falkon)
-* `chi` (Chromium)
-* `gch` (Google Chrome)
-* `op` (Opera)
-* `opbeta` (Opera Beta)
-* `opdev` (Opera Developer)
-* `viv` (Vivaldi)
-* `vivbeta` (Vivaldi Beta)
-* `vivsnap` (Vivaldi snapshot)
-* `slimjet` (Flashpeak Slimjet)
+### PathBase
 
-If you want call custom command with firefox style command-line option,
-you can call `fxstyle` with `browser` paramater as a command.
-Also you can call with chromium style command-line option, you can use `chrstyle`.
-
-## Actually called commands
-
-You can override with aliasing.
-
-* `firefox`
-* `waterfox`
-* `palemoon`
-* `seamonkey`
-* `falkon`
-* `chromium`
-* `google-chrome-stable`
-* `opera`
-* `opera-beta`
-* `opera-developer`
-* `vivaldi-stable`
-* `vivaldi-beta`
-* `vivaldi-snapshot`
-* `flashpeak-slimjet`
+Profile directory prefix on `pstr` means profile path.
 
 # Important changes
 
@@ -104,5 +83,5 @@ Rekonq is discontinued.
 
 ## Uncompatibility
 
-*Version 2.x is not compartible to 1.x!!*
+*Version 3.x is not compartible to 1.x or 2.x!!*
 
