@@ -11,7 +11,6 @@ class BrowserChooser
     if conf["PathBase"]
       profile = conf["PathBase"] + profile
     end
-    p arg
     exec(env, bin, "--user-data-dir=#{profile}", *arg)
   }
 
@@ -38,7 +37,7 @@ class BrowserChooser
       selected_profile = io.read
     end
     profile = selected_profile&.strip
-    unless @profiles[profile]
+    if ! @profiles[profile] || @profiles[profile] == "-"
       profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
     end
 
@@ -76,7 +75,7 @@ class BrowserChooser
   end
 
   def invoke_browser
-    unless @specified_profile
+    if !@specified_profile || @specified_profile == "-"
       profile_dialog
     end
     
@@ -91,8 +90,8 @@ class BrowserChooser
     fork do
       params = @profiles[@specified_profile]
       arg = ARGV
-      if params["opt"]
-        arg = params["opt"] + ARGV
+      if params["opts"]
+        arg = params["opts"] + ARGV
       end
       @browsers[params["type"]][:proc].call(params["pstr"], (params["env"] || {}), @browsers[params["type"]][:bin], arg, @config)
     end

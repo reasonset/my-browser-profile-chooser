@@ -8,6 +8,9 @@ web.rb <profile_name> [*arg]
 web.rb
 ```
 
+If profile name is not given, this script asks witch profile to use with Zenity dialog,
+and also if `-` is given as profile name.
+
 # Configuration
 
 ## Config file
@@ -21,15 +24,15 @@ for example:
 Profiles:
   fooprofile:
     pstr: /profile.1
-    opt:
+    opts:
       - "--incognito"
-      - "--proxy-server=socks5://foobar:66"
-      - "password-store=gnome"
+      - "--proxy-server=socks5://foobar:666"
+      - "--password-store=gnome"
     type: chi
 Profiles:
   foofxprofile:
     pstr: fooprofile
-    opt:
+    opts:
       - "--private-window"
       - "--headless"
     type: fx
@@ -45,7 +48,8 @@ Each profile has name as key and settings as value.
 |key in settings|mean|
 |-------|---------------------------|
 |`pstr`|Profile string. Chromium style browser wants profile directory path, and Firefox style browser wants profile name.|
-|`opt`|Command line options array.|
+|`opts`|Command line options array.|
+|`env`|A hash. Overriding environment variables.|
 |`type`|Browser type.|
 
 Avilable types are:
@@ -77,6 +81,10 @@ Key is a name of type, value is overriding command string.
 Profile directory prefix on `pstr` means profile path.
 
 # Important changes
+
+## Profile paramater
+
+Change profile key name `opt` to `opts`
 
 ## Defunct supports
 
