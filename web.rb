@@ -56,7 +56,7 @@ class BrowserChooser
     # regist each profile.
     (@profiles = @config["Profiles"]) or err "No Profiles found."
     @profiles.each do |k, profile|
-      unless profile["type"] && BROWSERS[profile["type"]] && profile["pstr"]
+      unless profile["type"] && BROWSERS[profile["type"]]
         err "Profile #{k} is wrong."
       end
     end
@@ -93,7 +93,7 @@ class BrowserChooser
       if params["opts"]
         arg = params["opts"] + ARGV
       end
-      @browsers[params["type"]][:proc].call(params["pstr"], (params["env"] || {}), @browsers[params["type"]][:bin], arg, @config)
+      @browsers[params["type"]][:proc].call((params["pstr"] || @specified_profile), (params["env"] || {}), @browsers[params["type"]][:bin], arg, @config)
     end
   end
   

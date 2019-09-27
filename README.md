@@ -50,7 +50,9 @@ Each profile has name as key and settings as value.
 |`pstr`|Profile string. Chromium style browser wants profile directory path, and Firefox style browser wants profile name.|
 |`opts`|Command line options array.|
 |`env`|A hash. Overriding environment variables.|
-|`type`|Browser type.|
+|`type`|Browser type. This value is required.|
+
+Is `pstr` is not given, use profile name isntead of its value.
 
 Avilable types are:
 
