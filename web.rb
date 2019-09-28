@@ -20,15 +20,34 @@ class BrowserChooser
     "pmoon" => {bin: "palemoon", proc: FXSTYLE},
     "smk" => {bin: "weamonkey", proc: FXSTYLE},
     "flk" => {bin: "falkon", proc: ->(profile, env, bin, arg, conf) { exec(env, bin, "-p", profile, *arg) } },
-    "chi" => {bin: "chromium", proc: CHRSTYLE},
+    "ch" => {bin: "chromium", proc: CHRSTYLE},
+    "chdev" => {bin: "chromium-developer", proc: CHRSTYLE},
     "gch" => {bin: "google-chrome-stable", proc: CHRSTYLE},
+    "gchbeta" => {bin: "google-chrome-beta", proc: CHRSTYLE},
+    "gchdev" => {bin: "google-chrome-developer", proc: CHRSTYLE},
     "op" => {bin: "opera", proc: CHRSTYLE},
     "opbeta" => {bin: "opera-beta", proc: CHRSTYLE},
     "opdev" => {bin: "opera-developer", proc: CHRSTYLE},
     "viv" => {bin: "vivaldi-stable", proc: CHRSTYLE},
     "vivsnap" => {bin: "vivaldi-snapshot", proc: CHRSTYLE},
-    "slimjet" => {bin: "flashpeak-slimjet", proc: CHRSTYLE}
+    "slimjet" => {bin: "flashpeak-slimjet", proc: CHRSTYLE},
+    "otter" => {bin: "otter-browser", proc: ->(profile, env, bin, arg, conf) { exec(env, bin, "--profile", ((conf["PathBase"] || "") + profile), *arg) } },
+    "lfx1" => {bin: "firefox", proc: FXSTYLE},
+    "lfx2" => {bin: "firefox", proc: FXSTYLE},
+    "lfx3" => {bin: "firefox", proc: FXSTYLE},
+    "lch1" => {bin: "chromium", proc: CHRSTYLE},
+    "lch2" => {bin: "chromium", proc: CHRSTYLE},
+    "lch3" => {bin: "chromium", proc: CHRSTYLE}
   }
+
+  BROWSERS["falkon"] = BROWSERS["flk"]
+  BROWSERS["chi"] = BROWSERS["ch"]
+  BROWSERS["chr"] = BROWSERS["ch"]
+  BROWSERS["chromium"] = BROWSERS["ch"]
+  BROWSERS["chrome"] = BROWSERS["gch"]
+  BROWSERS["opera"] = BROWSERS["op"]
+  BROWSERS["vivaldi"] = BROWSERS["viv"]
+
 
   # Ask your profile if not given.
   def profile_dialog
@@ -104,6 +123,7 @@ class BrowserChooser
       abort msg
     else
       system("notify-send", "--icon=browser", "--expire-time=5000", msg)
+      exit false
     end
   end
 end

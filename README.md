@@ -63,14 +63,33 @@ Avilable types are:
 |`pmoon`|Palemoon|`palemoon`|
 |`smk`|Seamonkey|`seamonkey`|
 |`flk`|Falkon|`falkon`|
+|`falkon`|Falkon|`falkon`|
+|`ch`|Chromium|`chromium`|
 |`chi`|Chromium|`chromium`|
+|`chr`|Chromium|`chromium`|
 |`gch`|Google Chrome|`google-chrome-stable`|
+|`chrome`|Google Chrome|`google-chrome-stable`|
 |`op`|Opera|`opera`|
+|`opera`|Opera|`opera`|
 |`opbeta`|Opera Beta|`opera-beta`|
 |`opdev`|Opera Developer|`opera-developer`|
 |`viv`|Vivaldi|`vivaldi-stalbe`|
+|`vivaldi`|Vivaldi|`vivaldi-stalbe`|
 |`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`|
 |`slimjet`|Flashpeak Slimjet|`slimjet`|
+|`otter`|Otter Browser|`otter-browser`|
+|`lfx1`|Logical Firefox style for override|`firefox`|
+|`lfx2`|Logical Firefox style for override|`firefox`|
+|`lfx3`|Logical Firefox style for override|`firefox`|
+|`lch1`|Logical Chromium style for override|`chromium`|
+|`lch2`|Logical Chromium style for override|`chromium`|
+|`lch3`|Logical Chromium style for override|`chromium`|
+
+
+Falkon takes profile name not a profile directory.
+You cannot specify profile directory path.
+
+Otter Browser takes profile direcory.
 
 ### Override
 
