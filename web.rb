@@ -30,6 +30,7 @@ class BrowserChooser
     "opdev" => {bin: "opera-developer", proc: CHRSTYLE},
     "viv" => {bin: "vivaldi-stable", proc: CHRSTYLE},
     "vivsnap" => {bin: "vivaldi-snapshot", proc: CHRSTYLE},
+    "br" => {bin: "brave", proc: CHRSTYLE},
     "slimjet" => {bin: "flashpeak-slimjet", proc: CHRSTYLE},
     "otter" => {bin: "otter-browser", proc: ->(profile, env, bin, arg, conf) { exec(env, bin, "--profile", ((conf["PathBase"] || "") + profile), *arg) } },
     "lfx1" => {bin: "firefox", proc: FXSTYLE},
@@ -47,6 +48,7 @@ class BrowserChooser
   BROWSERS["chrome"] = BROWSERS["gch"]
   BROWSERS["opera"] = BROWSERS["op"]
   BROWSERS["vivaldi"] = BROWSERS["viv"]
+  BROWSERS["brave"] = BROWSERS["br"]
 
 
   # Ask your profile if not given.

@@ -76,6 +76,8 @@ Avilable types are:
 |`viv`|Vivaldi|`vivaldi-stalbe`|
 |`vivaldi`|Vivaldi|`vivaldi-stalbe`|
 |`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`|
+|`br`|Brave|`brave`|
+|`brave`|Brave|`brave`|
 |`slimjet`|Flashpeak Slimjet|`slimjet`|
 |`otter`|Otter Browser|`otter-browser`|
 |`lfx1`|Logical Firefox style for override|`firefox`|
