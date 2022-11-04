@@ -56,37 +56,35 @@ Is `pstr` is not given, use profile name isntead of its value.
 
 Avilable types are:
 
-|name of type|appname|as command|
-|-----|--------|-----------------|
-|`fx`|Mozilla Firefox|`firefox`|
-|`wfx`|Waterfox|`faterfox`|
-|`pmoon`|Palemoon|`palemoon`|
-|`smk`|Seamonkey|`seamonkey`|
-|`flk`|Falkon|`falkon`|
-|`falkon`|Falkon|`falkon`|
-|`ch`|Chromium|`chromium`|
-|`chi`|Chromium|`chromium`|
-|`chr`|Chromium|`chromium`|
-|`gch`|Google Chrome|`google-chrome-stable`|
-|`chrome`|Google Chrome|`google-chrome-stable`|
-|`op`|Opera|`opera`|
-|`opera`|Opera|`opera`|
-|`opbeta`|Opera Beta|`opera-beta`|
-|`opdev`|Opera Developer|`opera-developer`|
-|`viv`|Vivaldi|`vivaldi-stalbe`|
-|`vivaldi`|Vivaldi|`vivaldi-stalbe`|
-|`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`|
-|`br`|Brave|`brave`|
-|`brave`|Brave|`brave`|
-|`slimjet`|Flashpeak Slimjet|`slimjet`|
-|`otter`|Otter Browser|`otter-browser`|
-|`lfx1`|Logical Firefox style for override|`firefox`|
-|`lfx2`|Logical Firefox style for override|`firefox`|
-|`lfx3`|Logical Firefox style for override|`firefox`|
-|`lch1`|Logical Chromium style for override|`chromium`|
-|`lch2`|Logical Chromium style for override|`chromium`|
-|`lch3`|Logical Chromium style for override|`chromium`|
-
+|name of type|appname|as command|Alias|
+|-----|--------|-----------------|-----------|
+|`fx`|Mozilla Firefox|`firefox`|`firefox`|
+|`fxdev`|Mozilla Firefox|`firefox-developer-edition`||
+|`wfx`|Waterfox|`faterfox`||
+|`pmoon`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
+|`smk`|Seamonkey|`seamonkey`||
+|`flk`|Falkon|`falkon`|`falkon`|
+|`ch`|Chromium|`chromium`|`chromium`, `chr`, `chi`|
+|`chdev`|Chromium|`chromium-developer`||
+|`gch`|Google Chrome|`google-chrome-stable`|`chrome`|
+|`gchbeta`|Google Chrome|`google-chrome-beta`||
+|`gchdev`|Google Chrome|`google-chrome-dev`||
+|`op`|Opera|`opera`|`opera`|
+|`opbeta`|Opera Beta|`opera-beta`||
+|`opdev`|Opera Developer|`opera-developer`||
+|`viv`|Vivaldi|`vivaldi-stalbe`|`vivaldi`|
+|`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`||
+|`br`|Brave|`brave`|`brave`|
+|`sj`|Flashpeak Slimjet|`slimjet`|`slimjet`|
+|`ott`|Otter Browser|`otter-browser`|`otter`|
+|`epp`|GNOME Epiphany|`epiphany`|`epiphany`|
+|`myb`|mybrowse|`mybrowse`|`mybrwose`|
+|`lfx1`|Logical Firefox style for override|`firefox`||
+|`lfx2`|Logical Firefox style for override|`firefox`||
+|`lfx3`|Logical Firefox style for override|`firefox`||
+|`lch1`|Logical Chromium style for override|`chromium`||
+|`lch2`|Logical Chromium style for override|`chromium`||
+|`lch3`|Logical Chromium style for override|`chromium`||
 
 Falkon takes profile name not a profile directory.
 You cannot specify profile directory path.
@@ -102,6 +100,8 @@ Key is a name of type, value is overriding command string.
 ### PathBase
 
 Profile directory prefix on `pstr` means profile path.
+
+If ommitted, use `${XDG_CONFIG_DIR}:-${HOME}/.config}/reasonset/browsers` instead.
 
 # Important changes
 

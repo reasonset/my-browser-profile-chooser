@@ -3,44 +3,65 @@ require 'yaml'
 
 class BrowserChooser
 
-  FXSTYLE = ->(profile, env, bin, arg, conf) {
-    exec(env, bin, "-P", profile, *arg)
-  }
+  STYLES = {
+    fx: ->(profile, env, bin, arg, conf) {
+      exec(env, bin, "-P", profile, *arg)
+    },
 
-  CHRSTYLE = ->(profile, env, bin, arg, conf) {
-    if conf["PathBase"]
-      profile = conf["PathBase"] + profile
-    end
-    exec(env, bin, "--user-data-dir=#{profile}", *arg)
+    chr: ->(profile, env, bin, arg, conf) {
+      profile = File.join(conf[:profile_dir], profile)
+      exec(env, bin, "--user-data-dir=#{profile}", *arg)
+    },
+
+    epp: ->(profile, env, bin, arg, conf) {
+      profile = File.join(conf[:profile_dir], profile)
+      exec(env, bin, "--profile=#{profile}", *arg)
+    },
+
+    flk: ->(profile, env, bin, arg, conf) {
+      exec(env, bin, "-p", profile, *arg)
+    },
+
+    myb: ->(profile, env, bin, arg, conf) {
+      profile = File.join(conf[:profile_dir], profile)
+      exec(env, bin, "--basedir=#{profile}", *arg)
+    },
   }
 
   BROWSERS = {
-    "fx" => {bin: "firefox", proc: FXSTYLE},
-    "wfx" => {bin: "waterfox", proc: FXSTYLE},
-    "pmoon" => {bin: "palemoon", proc: FXSTYLE},
-    "smk" => {bin: "weamonkey", proc: FXSTYLE},
-    "flk" => {bin: "falkon", proc: ->(profile, env, bin, arg, conf) { exec(env, bin, "-p", profile, *arg) } },
-    "ch" => {bin: "chromium", proc: CHRSTYLE},
-    "chdev" => {bin: "chromium-developer", proc: CHRSTYLE},
-    "gch" => {bin: "google-chrome-stable", proc: CHRSTYLE},
-    "gchbeta" => {bin: "google-chrome-beta", proc: CHRSTYLE},
-    "gchdev" => {bin: "google-chrome-developer", proc: CHRSTYLE},
-    "op" => {bin: "opera", proc: CHRSTYLE},
-    "opbeta" => {bin: "opera-beta", proc: CHRSTYLE},
-    "opdev" => {bin: "opera-developer", proc: CHRSTYLE},
-    "viv" => {bin: "vivaldi-stable", proc: CHRSTYLE},
-    "vivsnap" => {bin: "vivaldi-snapshot", proc: CHRSTYLE},
-    "br" => {bin: "brave", proc: CHRSTYLE},
-    "slimjet" => {bin: "flashpeak-slimjet", proc: CHRSTYLE},
-    "otter" => {bin: "otter-browser", proc: ->(profile, env, bin, arg, conf) { exec(env, bin, "--profile", ((conf["PathBase"] || "") + profile), *arg) } },
-    "lfx1" => {bin: "firefox", proc: FXSTYLE},
-    "lfx2" => {bin: "firefox", proc: FXSTYLE},
-    "lfx3" => {bin: "firefox", proc: FXSTYLE},
-    "lch1" => {bin: "chromium", proc: CHRSTYLE},
-    "lch2" => {bin: "chromium", proc: CHRSTYLE},
-    "lch3" => {bin: "chromium", proc: CHRSTYLE}
+    "fx" => {bin: "firefox", proc: STYLES[:fx]},
+    "fxdev" => {bin: "firefox-developer-edition", proc: STYLES[:fx]},
+    "wfx" => {bin: "waterfox", proc: STYLES[:fx]},
+    "pm" => {bin: "palemoon", proc: STYLES[:fx]},
+    "smk" => {bin: "weamonkey", proc: STYLES[:fx]},
+    "flk" => {bin: "falkon", proc: STYLES[:flk]},
+    "ch" => {bin: "chromium", proc: STYLES[:chr]},
+    "chdev" => {bin: "chromium-developer", proc: STYLES[:chr]},
+    "gch" => {bin: "google-chrome-stable", proc: STYLES[:chr]},
+    "gchbeta" => {bin: "google-chrome-beta", proc: STYLES[:chr]},
+    "gchdev" => {bin: "google-chrome-developer", proc: STYLES[:chr]},
+    "op" => {bin: "opera", proc: STYLES[:chr]},
+    "opbeta" => {bin: "opera-beta", proc: STYLES[:chr]},
+    "opdev" => {bin: "opera-developer", proc: STYLES[:chr]},
+    "viv" => {bin: "vivaldi-stable", proc: STYLES[:chr]},
+    "vivsnap" => {bin: "vivaldi-snapshot", proc: STYLES[:chr]},
+    "br" => {bin: "brave", proc: STYLES[:chr]},
+    "sj" => {bin: "flashpeak-slimjet", proc: STYLES[:chr]},
+    "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
+    "epp" => {bin: "epiphany", proc: STYLES[:epp]},
+    "myb" => {bin: "mybrowse", proc: STYLES[:myb]}
+    "lfx1" => {bin: "firefox", proc: STYLES[:fx]},
+    "lfx2" => {bin: "firefox", proc: STYLES[:fx]},
+    "lfx3" => {bin: "firefox", proc: STYLES[:fx]},
+    "lch1" => {bin: "chromium", proc: STYLES[:chr]},
+    "lch2" => {bin: "chromium", proc: STYLES[:chr]},
+    "lch3" => {bin: "chromium", proc: STYLES[:chr]}
   }
 
+  BROWSERS["firefox"] = BROWSERS["fx"]
+  BROWSERS["seamonkey"] = BROWSERS["smk"]
+  BROWSERS["pmoon"] = BROWSERS["pm"]
+  BROWSERS["palemoon"] = BROWSERS["pm"]
   BROWSERS["falkon"] = BROWSERS["flk"]
   BROWSERS["chi"] = BROWSERS["ch"]
   BROWSERS["chr"] = BROWSERS["ch"]
@@ -49,7 +70,10 @@ class BrowserChooser
   BROWSERS["opera"] = BROWSERS["op"]
   BROWSERS["vivaldi"] = BROWSERS["viv"]
   BROWSERS["brave"] = BROWSERS["br"]
-
+  BROWSERS["epiphany"] = BROWSERS["epp"]
+  BROWSERS["slimjet"] = BROWSERS["sj"]
+  BROWSERS["otter"] = BROWSERS["ott"]
+  BROWSERS["mybrowse"] = BROWSERS["myb"]
 
   # Ask your profile if not given.
   def profile_dialog
@@ -81,6 +105,8 @@ class BrowserChooser
         err "Profile #{k} is wrong."
       end
     end
+
+    @config[:profile_dir] = @config["PathBase"] || "#{ENV["XDG_CONFIG_HOME"] || "#{ENV["HOME"]}/.config}"}/reasonset/browsers"
 
     # set profile
     @specified_profile = ARGV.shift
@@ -114,7 +140,12 @@ class BrowserChooser
       if params["opts"]
         arg = params["opts"] + ARGV
       end
-      @browsers[params["type"]][:proc].call((params["pstr"] || @specified_profile), (params["env"] || {}), @browsers[params["type"]][:bin], arg, @config)
+      @browsers[params["type"]][:proc].call(
+        (params["pstr"] || @specified_profile),
+        (params["env"] || {}),
+        @browsers[params["type"]][:bin],
+        arg,
+        @config)
     end
   end
   

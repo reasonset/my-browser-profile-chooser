@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Web Browser(s)
+GenericName=Web Browser (with choosing profile)
+GenericName[ja]=ウェブブラウザ (with choosing profile)
+Comment=Access the Internet (with choosing profile)
+Comment[ja]=任意のプロファイルでインターネットにアクセス
+Exec=/home/haruka/bin/web - %U
+Terminal=false
+Icon=vivaldi
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;image/webp;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;
+Actions=new-private-window;
