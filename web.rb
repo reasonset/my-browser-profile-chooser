@@ -30,6 +30,7 @@ class BrowserChooser
 
   BROWSERS = {
     "fx" => {bin: "firefox", proc: STYLES[:fx]},
+    "fxbeta" => {bin: "firefox-beta", proc: STYLES[:fx]},
     "fxdev" => {bin: "firefox-developer-edition", proc: STYLES[:fx]},
     "wfx" => {bin: "waterfox", proc: STYLES[:fx]},
     "pm" => {bin: "palemoon", proc: STYLES[:fx]},
@@ -49,7 +50,7 @@ class BrowserChooser
     "sj" => {bin: "flashpeak-slimjet", proc: STYLES[:chr]},
     "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
     "epp" => {bin: "epiphany", proc: STYLES[:epp]},
-    "myb" => {bin: "mybrowse", proc: STYLES[:myb]}
+    "myb" => {bin: "mybrowse", proc: STYLES[:myb]},
     "lfx1" => {bin: "firefox", proc: STYLES[:fx]},
     "lfx2" => {bin: "firefox", proc: STYLES[:fx]},
     "lfx3" => {bin: "firefox", proc: STYLES[:fx]},

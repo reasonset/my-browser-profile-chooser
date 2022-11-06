@@ -59,6 +59,7 @@ Avilable types are:
 |name of type|appname|as command|Alias|
 |-----|--------|-----------------|-----------|
 |`fx`|Mozilla Firefox|`firefox`|`firefox`|
+|`fxbeta`|Mozilla Firefox|`firefox-beta`||
 |`fxdev`|Mozilla Firefox|`firefox-developer-edition`||
 |`wfx`|Waterfox|`faterfox`||
 |`pmoon`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
