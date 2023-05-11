@@ -4,8 +4,8 @@ Easy to switch each browser with each profile.
 # Usage
 
 ```
-web.rb <profile_name> [*arg]
-web.rb
+web <profile_name> [*arg]
+web
 ```
 
 If profile name is not given, this script asks witch profile to use with Zenity dialog,
@@ -52,7 +52,7 @@ Each profile has name as key and settings as value.
 |`env`|A hash. Overriding environment variables.|
 |`type`|Browser type. This value is required.|
 
-Is `pstr` is not given, use profile name isntead of its value.
+If `pstr` is not given, use profile name isntead of its value.
 
 Avilable types are:
 
