@@ -64,17 +64,21 @@ Avilable types are:
 |`wfx`|Waterfox|`faterfox`||
 |`pmoon`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
 |`smk`|Seamonkey|`seamonkey`||
+|`ict`|GNU IceCat|`icecat`|`icecat`|
 |`flk`|Falkon|`falkon`|`falkon`|
 |`ch`|Chromium|`chromium`|`chromium`, `chr`, `chi`|
 |`chdev`|Chromium|`chromium-developer`||
 |`gch`|Google Chrome|`google-chrome-stable`|`chrome`|
-|`gchbeta`|Google Chrome|`google-chrome-beta`||
-|`gchdev`|Google Chrome|`google-chrome-dev`||
+|`gchbeta`|Google Chrome (Beta)|`google-chrome-beta`||
+|`gchdev`|Google Chrome (Dev)|`google-chrome-dev`||
 |`op`|Opera|`opera`|`opera`|
 |`opbeta`|Opera Beta|`opera-beta`||
 |`opdev`|Opera Developer|`opera-developer`||
-|`viv`|Vivaldi|`vivaldi-stalbe`|`vivaldi`|
+|`viv`|Vivaldi|`vivaldi-stalbe`|`vivaldi-stable`|
 |`vivsnap`|Vivaldi Snapshot|`vivaldi-snapshot`||
+|`edg`|Microsoft Edge|`microsoft-edge-stable`|`edge`|
+|`edgbeta`|Microsoft Edge Beta|`microsoft-edge-beta`||
+|`edgdev`|Microsoft Edge Dev|`microsoft-edge-dev`||
 |`br`|Brave|`brave`|`brave`|
 |`sj`|Flashpeak Slimjet|`slimjet`|`slimjet`|
 |`ott`|Otter Browser|`otter-browser`|`otter`|
@@ -97,6 +101,14 @@ Otter Browser takes profile direcory.
 Override browser command.
 
 Key is a name of type, value is overriding command string.
+
+For example, Google Chrome `gch` invokes `google-chrome-stable` command,
+but if Google Chrome is installed as `google-chrome` to your environment, set
+
+```yaml
+Override:
+  gch: google-chrome
+```
 
 ### PathBase
 

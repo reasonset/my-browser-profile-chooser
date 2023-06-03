@@ -35,6 +35,7 @@ class BrowserChooser
     "wfx" => {bin: "waterfox", proc: STYLES[:fx]},
     "pm" => {bin: "palemoon", proc: STYLES[:fx]},
     "smk" => {bin: "weamonkey", proc: STYLES[:fx]},
+    "ict" => {bin: "ictcat", proc: STYLES[:fx]},
     "flk" => {bin: "falkon", proc: STYLES[:flk]},
     "ch" => {bin: "chromium", proc: STYLES[:chr]},
     "chdev" => {bin: "chromium-developer", proc: STYLES[:chr]},
@@ -46,6 +47,9 @@ class BrowserChooser
     "opdev" => {bin: "opera-developer", proc: STYLES[:chr]},
     "viv" => {bin: "vivaldi-stable", proc: STYLES[:chr]},
     "vivsnap" => {bin: "vivaldi-snapshot", proc: STYLES[:chr]},
+    "edg" => {bin: "microsoft-edge-stable", proc: STYLES[:chr]},
+    "edgbeta" => {bin: "microsoft-edge-beta", proc: STYLES[:chr]},
+    "edgdev" => {bin: "microsoft-edge-dev", proc: STYLES[:chr]},
     "br" => {bin: "brave", proc: STYLES[:chr]},
     "sj" => {bin: "flashpeak-slimjet", proc: STYLES[:chr]},
     "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
@@ -63,6 +67,7 @@ class BrowserChooser
   BROWSERS["seamonkey"] = BROWSERS["smk"]
   BROWSERS["pmoon"] = BROWSERS["pm"]
   BROWSERS["palemoon"] = BROWSERS["pm"]
+  BROWSERS["icecat"] = BROWSERS["ict"]
   BROWSERS["falkon"] = BROWSERS["flk"]
   BROWSERS["chi"] = BROWSERS["ch"]
   BROWSERS["chr"] = BROWSERS["ch"]
@@ -70,6 +75,7 @@ class BrowserChooser
   BROWSERS["chrome"] = BROWSERS["gch"]
   BROWSERS["opera"] = BROWSERS["op"]
   BROWSERS["vivaldi"] = BROWSERS["viv"]
+  BROWSERS["edge"] = BROWSERS["edg"]
   BROWSERS["brave"] = BROWSERS["br"]
   BROWSERS["epiphany"] = BROWSERS["epp"]
   BROWSERS["slimjet"] = BROWSERS["sj"]
