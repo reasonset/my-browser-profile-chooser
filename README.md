@@ -1,4 +1,5 @@
 # My Browser Profile Chooser.
+
 Easy to switch each browser with each profile.
 
 # Usage
@@ -51,6 +52,7 @@ Each profile has name as key and settings as value.
 |`opts`|Command line options array.|
 |`env`|A hash. Overriding environment variables.|
 |`type`|Browser type. This value is required.|
+|`url`|String append to `opts`. Weaver (Fossil) requires this.|
 
 If `pstr` is not given, use profile name isntead of its value.
 
@@ -84,12 +86,17 @@ Avilable types are:
 |`ott`|Otter Browser|`otter-browser`|`otter`|
 |`epp`|GNOME Epiphany|`epiphany`|`epiphany`|
 |`myb`|mybrowse|`mybrowse`|`mybrwose`|
+|`wvf`|Weaver (Fossil)|`weaver`|`weaver`|
 |`lfx1`|Logical Firefox style for override|`firefox`||
 |`lfx2`|Logical Firefox style for override|`firefox`||
 |`lfx3`|Logical Firefox style for override|`firefox`||
+|`lfx4`|Logical Firefox style for override|`firefox`||
+|`lfx5`|Logical Firefox style for override|`firefox`||
 |`lch1`|Logical Chromium style for override|`chromium`||
 |`lch2`|Logical Chromium style for override|`chromium`||
 |`lch3`|Logical Chromium style for override|`chromium`||
+|`lch4`|Logical Chromium style for override|`chromium`||
+|`lch5`|Logical Chromium style for override|`chromium`||
 
 Falkon takes profile name not a profile directory.
 You cannot specify profile directory path.
@@ -128,8 +135,6 @@ Qupzilla is renamed to Falkon.
 
 Midori losts configuration directory option.
 
-SRWare Iron for Linux is discontinued.
-
 Maxthon web browser is discontinued.
 
 Rekonq is discontinued.
@@ -138,3 +143,9 @@ Rekonq is discontinued.
 
 *Version 3.x is not compartible to 1.x or 2.x!!*
 
+## Default path base
+
+Before version 3.3, `PathBase` is not set.
+
+Since version 3.3, `${XDG_CONFIG_DIR}:-${HOME}/.config}/reasonset/browsers` for `PathBase` by default.
+It may change in future.

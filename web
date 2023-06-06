@@ -26,8 +26,14 @@ class BrowserChooser
       profile = File.join(conf[:profile_dir], profile)
       exec(env, bin, "--basedir=#{profile}", *arg)
     },
+
+    wvf: ->(profile, env, bin, arg, conf) {
+      profile = "//profile/#{profile}"
+      exec(env, bin, "//target/0", profile, *arg)
+    },
   }
 
+  ############ Bind browser name to style proc ############
   BROWSERS = {
     "fx" => {bin: "firefox", proc: STYLES[:fx]},
     "fxbeta" => {bin: "firefox-beta", proc: STYLES[:fx]},
@@ -55,14 +61,21 @@ class BrowserChooser
     "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
     "epp" => {bin: "epiphany", proc: STYLES[:epp]},
     "myb" => {bin: "mybrowse", proc: STYLES[:myb]},
+    "wvf" => {bin: "weaver", proc: STYLES[:wvf]},
     "lfx1" => {bin: "firefox", proc: STYLES[:fx]},
     "lfx2" => {bin: "firefox", proc: STYLES[:fx]},
     "lfx3" => {bin: "firefox", proc: STYLES[:fx]},
+    "lfx4" => {bin: "firefox", proc: STYLES[:fx]},
+    "lfx5" => {bin: "firefox", proc: STYLES[:fx]},
     "lch1" => {bin: "chromium", proc: STYLES[:chr]},
     "lch2" => {bin: "chromium", proc: STYLES[:chr]},
-    "lch3" => {bin: "chromium", proc: STYLES[:chr]}
+    "lch3" => {bin: "chromium", proc: STYLES[:chr]},
+    "lch4" => {bin: "chromium", proc: STYLES[:chr]},
+    "lch5" => {bin: "chromium", proc: STYLES[:chr]},
   }
+  ########################################################
 
+  ##### Browser name aliases #####
   BROWSERS["firefox"] = BROWSERS["fx"]
   BROWSERS["seamonkey"] = BROWSERS["smk"]
   BROWSERS["pmoon"] = BROWSERS["pm"]
@@ -81,6 +94,8 @@ class BrowserChooser
   BROWSERS["slimjet"] = BROWSERS["sj"]
   BROWSERS["otter"] = BROWSERS["ott"]
   BROWSERS["mybrowse"] = BROWSERS["myb"]
+  BROWSERS["weaver"] = BROWSERS["wvf"]
+  ##################################
 
   # Ask your profile if not given.
   def profile_dialog
@@ -147,6 +162,10 @@ class BrowserChooser
       if params["opts"]
         arg = params["opts"] + ARGV
       end
+      if params["url"]
+        arg.push params["url"]
+      end
+
       @browsers[params["type"]][:proc].call(
         (params["pstr"] || @specified_profile),
         (params["env"] || {}),
