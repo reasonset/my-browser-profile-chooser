@@ -100,10 +100,10 @@ class BrowserChooser
   # Ask your profile if not given.
   def profile_dialog
     selected_profile = nil
-    IO.popen(["zenity", "--list", "--title=Select Browser Profile", "--width=400", "--height=500", "--column=Profile", *@profiles.keys], "r") do |io|
+    IO.popen(["yad", "--list", "--title=Select Browser Profile", "--width=400", "--height=500", "--column=Profile", *@profiles.keys], "r") do |io|
       selected_profile = io.read
     end
-    profile = selected_profile&.strip
+    profile = selected_profile&.strip&.delete_suffix("|")
     if ! @profiles[profile] || @profiles[profile] == "-"
       profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
     end
