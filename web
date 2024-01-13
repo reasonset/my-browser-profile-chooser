@@ -100,13 +100,34 @@ class BrowserChooser
   # Ask your profile if not given.
   def profile_dialog
     selected_profile = nil
-    IO.popen(["yad", "--list", "--title=Select Browser Profile", "--width=400", "--height=500", "--column=Profile", *@profiles.keys], "r") do |io|
-      selected_profile = io.read
+    profile = nil
+    case @config["Dialog"]
+    when "yad"
+      IO.popen(["yad", "--list", "--title=Select Browser Profile", "--width=400", "--height=500", "--column=Profile", *@profiles.keys], "r") do |io|
+        selected_profile = io.read
+      end
+      profile = selected_profile&.strip&.delete_suffix("|")
+      if ! @profiles[profile] || @profiles[profile] == "-"
+        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
+      end
+    when "kdialog"
+      IO.popen(["kdialog", "--title=Select Browser Profile", "--menu", "Profile", *@profiles.keys.map {|i| [i, i] }.flatten], "r") do |io|
+        selected_profile = io.read
+      end
+      profile = selected_profile&.strip
+      if ! @profiles[profile] || @profiles[profile] == "-"
+        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
+      end
+    else
+      IO.popen(["zenity", "--list", "--title=Select Browser Profile", "--width=400", "--height=800", "--column=Profile", *@profiles.keys], "r") do |io|
+        selected_profile = io.read
+      end
+      profile = selected_profile&.strip
+      if ! @profiles[profile] || @profiles[profile] == "-"
+        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
+      end
     end
-    profile = selected_profile&.strip&.delete_suffix("|")
-    if ! @profiles[profile] || @profiles[profile] == "-"
-      profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
-    end
+    
 
     @specified_profile = profile
   end

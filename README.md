@@ -40,6 +40,7 @@ Profiles:
 Override:
   gch: google-chrome
 PathBase: /home/jrh/browser
+Dialog: kdialog
 ```
 
 ### Profiles
@@ -122,6 +123,13 @@ Override:
 Profile directory prefix on `pstr` means profile path.
 
 If ommitted, use `${XDG_CONFIG_DIR}:-${HOME}/.config}/reasonset/browsers` instead.
+
+### Dialog
+
+What dialog to use for selecting profile.
+
+You can choice `yad`, `kdialog` or else.
+`zenity` is used by default.
 
 # Important changes
 
