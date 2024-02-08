@@ -67,6 +67,8 @@ Avilable types are:
 |`wfx`|Waterfox|`faterfox`||
 |`pmoon`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
 |`smk`|Seamonkey|`seamonkey`||
+|`wolf`|librewolf|`librewolf`||
+|`cachy`|Cachy-browser|`cachy-browser`||
 |`ict`|GNU IceCat|`icecat`|`icecat`|
 |`flk`|Falkon|`falkon`|`falkon`|
 |`ch`|Chromium|`chromium`|`chromium`, `chr`, `chi`|
