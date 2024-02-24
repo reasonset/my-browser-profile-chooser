@@ -60,6 +60,7 @@ class BrowserChooser
     "edgdev" => {bin: "microsoft-edge-dev", proc: STYLES[:chr]},
     "br" => {bin: "brave", proc: STYLES[:chr]},
     "sj" => {bin: "flashpeak-slimjet", proc: STYLES[:chr]},
+    "sri" => {bin: "srware-iron", proc: STYLES[:chr]},
     "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
     "epp" => {bin: "epiphany", proc: STYLES[:epp]},
     "myb" => {bin: "mybrowse", proc: STYLES[:myb]},
@@ -94,9 +95,12 @@ class BrowserChooser
   BROWSERS["brave"] = BROWSERS["br"]
   BROWSERS["epiphany"] = BROWSERS["epp"]
   BROWSERS["slimjet"] = BROWSERS["sj"]
+  BROWSERS["iron"] = BROWSERS["sri"]
+  BROWSERS["srware"] = BROWSERS["sri"]
   BROWSERS["otter"] = BROWSERS["ott"]
   BROWSERS["mybrowse"] = BROWSERS["myb"]
   BROWSERS["weaver"] = BROWSERS["wvf"]
+
   ##################################
 
   # Ask your profile if not given.

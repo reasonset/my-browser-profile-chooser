@@ -86,6 +86,7 @@ Avilable types are:
 |`edgdev`|Microsoft Edge Dev|`microsoft-edge-dev`||
 |`br`|Brave|`brave`|`brave`|
 |`sj`|Flashpeak Slimjet|`slimjet`|`slimjet`|
+|`sri`|SRware Iron|`srware-iron`|`iron`, `srware`|
 |`ott`|Otter Browser|`otter-browser`|`otter`|
 |`epp`|GNOME Epiphany|`epiphany`|`epiphany`|
 |`myb`|mybrowse|`mybrowse`|`mybrwose`|
