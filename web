@@ -44,6 +44,7 @@ class BrowserChooser
     "wolf" => {bin: "librewolf", proc: STYLES[:fx]},
     "cachy" => {bin: "cachy-browser", proc: STYLES[:fx]},
     "ict" => {bin: "ictcat", proc: STYLES[:fx]},
+    "flp" => {bin: "floorp", proc: STYLES[:fx]},
     "flk" => {bin: "falkon", proc: STYLES[:flk]},
     "ch" => {bin: "chromium", proc: STYLES[:chr]},
     "chdev" => {bin: "chromium-developer", proc: STYLES[:chr]},

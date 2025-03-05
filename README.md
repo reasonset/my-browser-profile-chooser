@@ -6,6 +6,7 @@ Easy to switch each browser with each profile.
 
 ```
 web <profile_name> [*arg]
+web - [*arg]
 web
 ```
 
@@ -65,11 +66,12 @@ Avilable types are:
 |`fxbeta`|Mozilla Firefox|`firefox-beta`||
 |`fxdev`|Mozilla Firefox|`firefox-developer-edition`||
 |`wfx`|Waterfox|`faterfox`||
-|`pmoon`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
+|`pm`|Palemoon|`palemoon`|`pmoon`, `palemoon`|
 |`smk`|Seamonkey|`seamonkey`||
 |`wolf`|librewolf|`librewolf`||
 |`cachy`|Cachy-browser|`cachy-browser`||
 |`ict`|GNU IceCat|`icecat`|`icecat`|
+|`flp`|Floorp Browser|`floorp`||
 |`flk`|Falkon|`falkon`|`falkon`|
 |`ch`|Chromium|`chromium`|`chromium`, `chr`, `chi`|
 |`chdev`|Chromium|`chromium-developer`||
