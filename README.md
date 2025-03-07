@@ -72,6 +72,7 @@ Avilable types are:
 |`cachy`|Cachy-browser|`cachy-browser`||
 |`ict`|GNU IceCat|`icecat`|`icecat`|
 |`flp`|Floorp Browser|`floorp`||
+|`mdr`|Mirodi|`midori`|`midori`|
 |`flk`|Falkon|`falkon`|`falkon`|
 |`ch`|Chromium|`chromium`|`chromium`, `chr`, `chi`|
 |`chdev`|Chromium|`chromium-developer`||
@@ -144,13 +145,10 @@ Change profile key name `opt` to `opts`
 
 ## Defunct supports
 
-Qupzilla is renamed to Falkon.
-
-Midori losts configuration directory option.
-
-Maxthon web browser is discontinued.
-
-Rekonq is discontinued.
+* Qupzilla is renamed to Falkon.
+* Midori losts configuration directory option. (Chromium based version)
+* Maxthon web browser is discontinued.
+* Rekonq is discontinued.
 
 ## Uncompatibility
 

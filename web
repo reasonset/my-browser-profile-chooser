@@ -45,6 +45,7 @@ class BrowserChooser
     "cachy" => {bin: "cachy-browser", proc: STYLES[:fx]},
     "ict" => {bin: "ictcat", proc: STYLES[:fx]},
     "flp" => {bin: "floorp", proc: STYLES[:fx]},
+    "mdr" => {bin: "midori", proc: STYLES[:fx]},
     "flk" => {bin: "falkon", proc: STYLES[:flk]},
     "ch" => {bin: "chromium", proc: STYLES[:chr]},
     "chdev" => {bin: "chromium-developer", proc: STYLES[:chr]},
@@ -85,6 +86,7 @@ class BrowserChooser
   BROWSERS["pmoon"] = BROWSERS["pm"]
   BROWSERS["palemoon"] = BROWSERS["pm"]
   BROWSERS["icecat"] = BROWSERS["ict"]
+  BROWSERS["midori"] = BROWSERS["mdr"]
   BROWSERS["falkon"] = BROWSERS["flk"]
   BROWSERS["chi"] = BROWSERS["ch"]
   BROWSERS["chr"] = BROWSERS["ch"]
