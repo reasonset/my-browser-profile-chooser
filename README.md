@@ -25,13 +25,12 @@ for example:
 ---
 Profiles:
   fooprofile:
-    pstr: /profile.1
+    pstr: profile.1
     opts:
       - "--incognito"
       - "--proxy-server=socks5://foobar:666"
       - "--password-store=gnome"
     type: chi
-Profiles:
   foofxprofile:
     pstr: fooprofile
     opts:
