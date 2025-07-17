@@ -115,29 +115,65 @@ class BrowserChooser
       IO.popen(["yad", "--list", "--title=Select Browser Profile", "--width=400", "--height=500", "--column=Profile", *@profiles.keys], "r") do |io|
         selected_profile = io.read
       end
-      profile = selected_profile&.strip&.delete_suffix("|")
-      if ! @profiles[profile] || @profiles[profile] == "-"
-        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
-      end
+      profile_dialog_select selected_profile&.strip
     when "kdialog"
       IO.popen(["kdialog", "--title=Select Browser Profile", "--menu", "Profile", *@profiles.keys.map {|i| [i, i] }.flatten], "r") do |io|
         selected_profile = io.read
       end
-      profile = selected_profile&.strip
-      if ! @profiles[profile] || @profiles[profile] == "-"
-        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
+      profile_dialog_select selected_profile&.strip
+    when "rofi"
+      IO.popen(["rofi", "-dmenu", "-window-title", "Select Browser Profile"], "w+") do |io|
+        io.puts @profiles.keys
+        io.close_write
+        selected_profile = io.read
       end
+      profile_dialog_select selected_profile&.strip
+    when "dmenu"
+      cmd = ["dmenu", "-p", "Select Browser Profile"]
+      if @config["MenuOpts"]&.[]("lines")
+        cmd.concat(["-l", @config["MenuOpts"]["lines"]])
+      else
+        cmd.concat(["-l", "16"])
+      end
+      if @config["MenuOpts"]
+        cmd.concat(["-fn", @config["MenuOpts"]["font"]]) if @config["MenuOpts"]["font"]
+        cmd.concat(["-m", @config["MenuOpts"]["monitor"]]) if @config["MenuOpts"]["monitor"]
+      end
+      IO.popen(cmd, "w+") do |io|
+        io.puts @profiles.keys
+        io.close_write
+        selected_profile = io.read
+      end
+      profile_dialog_select selected_profile&.strip
+    when "bemenu"
+      cmd = ["bemenu", "-p", "Select Browser Profile"]
+      if @config["MenuOpts"]
+        if @config["MenuOpts"]["lines"]
+          cmd.concat(["-l", @config["MenuOpts"]["lines"]])
+        else
+          cmd.concat(["-l", "16"])
+        end
+        cmd.concat(["-fn", @config["MenuOpts"]["font"]]) if @config["MenuOpts"]["font"]
+        cmd.concat(["-m", @config["MenuOpts"]["monitor"]]) if @config["MenuOpts"]["monitor"]
+      end
+      IO.popen(cmd, "w+") do |io|
+        io.puts @profiles.keys
+        io.close_write
+        selected_profile = io.read
+      end
+      profile_dialog_select selected_profile&.strip
     else
       IO.popen(["zenity", "--list", "--title=Select Browser Profile", "--width=400", "--height=800", "--column=Profile", *@profiles.keys], "r") do |io|
         selected_profile = io.read
       end
-      profile = selected_profile&.strip
-      if ! @profiles[profile] || @profiles[profile] == "-"
-        profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
-      end
+      profile_dialog_select selected_profile&.strip
     end
-    
+  end
 
+  def profile_dialog_select(profile)
+    if ! @profiles[profile] || @profiles[profile] == "-"
+      profile = (@config["Default"] && @profiles[@config["Default"]]) or exit 0
+    end
     @specified_profile = profile
   end
 

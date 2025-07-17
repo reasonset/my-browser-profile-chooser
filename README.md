@@ -133,8 +133,10 @@ If ommitted, use `${XDG_CONFIG_DIR}:-${HOME}/.config}/reasonset/browsers` instea
 
 What dialog to use for selecting profile.
 
-You can choice `yad`, `kdialog` or else.
+You can choice `yad`, `kdialog`, `rofi`, `dmenu`, `bemenu` or else.
 `zenity` is used by default.
+
+`dmenu` or `bemenu` refers `menu_monitor` configuration.
 
 # Important changes
 
