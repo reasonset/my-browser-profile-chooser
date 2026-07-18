@@ -71,6 +71,8 @@ class BrowserChooser
     "sj" => {bin: "flashpeak-slimjet", proc: STYLES[:chr]},
     "sri" => {bin: "srware-iron", proc: STYLES[:chr]},
     "he" => {bin: "helium", proc: STYLES[:chr]},
+    "crom" => {bin: "cromite", proc: STYLES[:chr]},
+    "triv" => {bin: "trivalent", proc: STYLES[:chr]},
     "ott" => {bin: "otter-browser", proc: STYLES[:epp]},
     "epp" => {bin: "epiphany", proc: STYLES[:epp]},
     "myb" => {bin: "mybrowse", proc: STYLES[:myb]},
@@ -106,6 +108,8 @@ class BrowserChooser
   BROWSERS["edge"] = BROWSERS["edg"]
   BROWSERS["brave"] = BROWSERS["br"]
   BROWSERS["helium"] = BROWSERS["he"]
+  BROWSERS["cromite"] = BROWSERS["crom"]
+  BROWSERS["trivalent"] = BROWSERS["triv"]
   BROWSERS["epiphany"] = BROWSERS["epp"]
   BROWSERS["slimjet"] = BROWSERS["sj"]
   BROWSERS["iron"] = BROWSERS["sri"]
